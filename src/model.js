@@ -24,7 +24,7 @@ Profile.init(
       type:Sequelize.DECIMAL(12,2)
     },
     type: {
-      type: Sequelize.ENUM('client', 'contractor')
+      type: Sequelize.ENUM('client', 'contractor'),
     }
   },
   {
@@ -46,9 +46,18 @@ Contract.init(
   },
   {
     sequelize,
-    modelName: 'Contract'
+    modelName: 'Contract',
+    indexes: [{ // We have a route that filters by status, so we need this index for performance.
+      fields: ['status'] 
+    }]
   }
 );
+
+Contract.STATUS = {
+  NEW: 'new',
+  IN_PROGRESS: 'in_progress',
+  TERMINATED: 'terminated',
+};
 
 class Job extends Sequelize.Model {}
 Job.init(
