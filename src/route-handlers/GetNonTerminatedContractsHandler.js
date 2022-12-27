@@ -1,6 +1,6 @@
 const { Op } = require("sequelize");
 
-module.exports = async function GetContractsHandler(req,res){
+module.exports = async function GetNonTerminatedContractsHandler(req,res){
     try {
         const { Contract } = req.app.get('models');
         const contracts = await Contract.findAll({
