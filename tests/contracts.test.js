@@ -2,7 +2,7 @@ const app = require('../src/app');
 const supertest = require('supertest');
 const request = supertest(app);
 
-test("get contract by id", async ()=>{
+test("owener get contract by id", async ()=>{
     const resp = await request.get('/contracts/1')
         .set('profile_id', '5')
         .expect('Content-Type', /json/)
@@ -15,8 +15,8 @@ test("get contract by id", async ()=>{
     expect(resp.body.ContractorId).toBe(5);
 });
 
-test("get contract by id of different user", async ()=>{
-    const resp = await request.get('/contracts/3')
+test("not owner tries to get contract by", async ()=>{
+    await request.get('/contracts/3')
         .set('profile_id', '1')
         .expect(403);
 });

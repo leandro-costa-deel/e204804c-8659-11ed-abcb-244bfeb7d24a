@@ -1,4 +1,3 @@
-// GET /contracts/:id - This API is broken dizzy_face! it should return the contract only if it belongs to the profile calling. better fix that!
 module.exports = async function ContractByIdHandler(req,res){
     const {Contract} = req.app.get('models');
     const {id} = req.params;
