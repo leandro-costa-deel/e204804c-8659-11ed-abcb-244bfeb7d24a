@@ -1,21 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const {sequelize} = require('./model')
-const {getProfile} = require('./middleware/getProfile')
+const {sequelize} = require('./model');
+const {getProfile} = require('./middleware/getProfile');
+const PingHandler = require("./route-handlers/PingHandler");
+const ContractByIdHandler = require("./route-handlers/ContractByIdHandler");
+
 const app = express();
 app.use(bodyParser.json());
-app.set('sequelize', sequelize)
-app.set('models', sequelize.models)
+app.set('sequelize', sequelize);
+app.set('models', sequelize.models);
 
-/**
- * FIX ME!
- * @returns contract by id
- */
-app.get('/contracts/:id',getProfile ,async (req, res) =>{
-    const {Contract} = req.app.get('models')
-    const {id} = req.params
-    const contract = await Contract.findOne({where: {id}})
-    if(!contract) return res.status(404).end()
-    res.json(contract)
-})
+// So external tools can monitore if the backend is alive.
+app.get("/ping", PingHandler);
+app.get('/contracts/:id', getProfile, ContractByIdHandler);
+
 module.exports = app;
