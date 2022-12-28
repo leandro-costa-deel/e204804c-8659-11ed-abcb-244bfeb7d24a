@@ -1,7 +1,8 @@
-const { Op } = require("sequelize");
+const BasicRouteHandler = require('./BasicRouteHandler');
 
-module.exports = async function GetNonTerminatedContractsHandler(req,res){
-    try {
+class GetNonTerminatedContractsHandler  extends BasicRouteHandler {
+    async handleRequest(req,res){
+        const Op = req.app.get('Op');
         const { Contract } = req.app.get('models');
         const contracts = await Contract.findAll({
             where: {
@@ -14,9 +15,10 @@ module.exports = async function GetNonTerminatedContractsHandler(req,res){
                 ]
             }
         });
-        res.json(contracts);
-    } catch(error) {
-        console.log("ERROR:", error);
-        res.status(500).send(''+error);
+        return res.json(contracts);
     }
 }
+
+// singleton
+const getNonTerminatedContractsHandler = new GetNonTerminatedContractsHandler();
+module.exports = getNonTerminatedContractsHandler;

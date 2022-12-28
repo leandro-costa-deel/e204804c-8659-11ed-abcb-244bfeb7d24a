@@ -31,7 +31,6 @@ describe("/contracts", ()=>{
         expect(Array.isArray(resp.body)).toBe(true);
         expect(resp.body.length).toBe(3);
         resp.body.forEach( contract => {
-            console.log("contract:", contract);
             expect(contract.ClientId==6 || contract.ContractorId==6).toBe(true);
         });
     });
