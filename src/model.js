@@ -3,6 +3,7 @@ const Sequelize = require('sequelize');
 const sequelize = new Sequelize({
   dialect: 'sqlite',
   storage: './database.sqlite3',
+  logging: process.env.NODE_ENV === 'development',
 });
 
 class Profile extends Sequelize.Model {}
@@ -15,6 +16,15 @@ Profile.init(
     lastName: {
       type: Sequelize.STRING,
       allowNull: false
+    },
+    fullName: {
+      type: Sequelize.VIRTUAL,
+      get() {
+        return `${this.firstName} ${this.lastName}`;
+      },
+      set(_value) {
+        throw new Error('Do not try to set the `fullName` value!');
+      }
     },
     profession: {
       type: Sequelize.STRING,

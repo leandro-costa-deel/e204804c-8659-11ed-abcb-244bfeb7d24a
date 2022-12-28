@@ -1,6 +1,5 @@
 const app = require('../src/app');
 const supertest = require('supertest');
-const { Job, Contract, Profile } = require('../src/model');
 const request = supertest(app);
 
 describe("get /admin/best-profession", ()=>{

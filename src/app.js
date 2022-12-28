@@ -9,6 +9,7 @@ const contractByIdHandler = require("./route-handlers/ContractByIdHandler");
 const payJobHandler = require('./route-handlers/PayJobHandler');
 const depositHandler = require('./route-handlers/DepositHandler');
 const bestProfessionHandler = require('./route-handlers/BestProfessionHandler');
+const bestClientsHandler = require('./route-handlers/BestClientsHandler');
 
 const app = express();
 app.use(bodyParser.json());
@@ -24,5 +25,6 @@ app.get('/jobs/unpaid', getProfile, getUnpaidJobsForActiveContractsHandler.handl
 app.post('/jobs/:job_id/pay', getProfile, payJobHandler.handler);
 app.post('/balances/deposit/:userId', getProfile, depositHandler.handler);
 app.get('/admin/best-profession', getProfile, bestProfessionHandler.handler);
+app.get('/admin/best-clients', getProfile, bestClientsHandler.handler);
 
 module.exports = app;

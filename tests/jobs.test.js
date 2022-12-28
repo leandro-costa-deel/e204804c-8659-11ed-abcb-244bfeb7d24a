@@ -85,7 +85,7 @@ describe("post /jobs/:job_id/pay", ()=>{
         const contractor = await Profile.create({
             firstName: 'Leandro',
             lastName: 'Costa',
-            profession: 'Software Engineer',
+            profession: 'Programer',
             balance: 0,
             type: Profile.TYPE.CONTRACTOR,
         });
@@ -129,7 +129,7 @@ describe("post /jobs/:job_id/pay", ()=>{
         const contractor = await Profile.create({
             firstName: 'Leandro',
             lastName: 'Costa',
-            profession: 'Software Engineer',
+            profession: 'Programer',
             balance: 0,
             type: Profile.TYPE.CONTRACTOR,
         });
