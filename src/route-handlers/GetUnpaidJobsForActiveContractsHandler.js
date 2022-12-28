@@ -1,7 +1,8 @@
-const { Op } = require("sequelize");
+const BasicRouteHandler = require('./BasicRouteHandler');
 
-module.exports = async function GetUnpaidJobsForActiveContractsHandler(req,res){
-    try {
+class GetUnpaidJobsForActiveContractsHandler  extends BasicRouteHandler {
+    async handleRequest(req,res){
+        const Op = req.app.get('Op');
         const { Job, Contract } = req.app.get('models');
         const jobs = await Job.findAll({
             where: {
@@ -18,9 +19,9 @@ module.exports = async function GetUnpaidJobsForActiveContractsHandler(req,res){
                 }
             }],
         });
-        res.json(jobs);
-    } catch(error) {
-        console.error("ERROR:", error);
-        res.status(500).send(''+error);
+        return res.json(jobs);
     }
 }
+
+const getUnpaidJobsForActiveContractsHandler = new GetUnpaidJobsForActiveContractsHandler();
+module.exports = getUnpaidJobsForActiveContractsHandler;

@@ -4,7 +4,7 @@ const {sequelize, Op} = require('./model');
 const {getProfile} = require('./middleware/getProfile');
 const PingHandler = require("./route-handlers/PingHandler");
 const getNonTerminatedContractsHandler = require("./route-handlers/GetNonTerminatedContractsHandler");
-const GetUnpaidJobsForActiveContractsHandler = require('./route-handlers/GetUnpaidJobsForActiveContractsHandler');
+const getUnpaidJobsForActiveContractsHandler = require('./route-handlers/GetUnpaidJobsForActiveContractsHandler');
 const contractByIdHandler = require("./route-handlers/ContractByIdHandler");
 
 const app = express();
@@ -19,6 +19,6 @@ console.log("contractByIdHandler:", contractByIdHandler);
 app.get("/ping", PingHandler);
 app.get("/contracts", getProfile, getNonTerminatedContractsHandler.handler);
 app.get('/contracts/:id', getProfile, contractByIdHandler.handler);
-app.get('/jobs/unpaid', getProfile, GetUnpaidJobsForActiveContractsHandler);
+app.get('/jobs/unpaid', getProfile, getUnpaidJobsForActiveContractsHandler.handler);
 
 module.exports = app;
