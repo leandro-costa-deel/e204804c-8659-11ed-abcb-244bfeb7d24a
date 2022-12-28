@@ -2,8 +2,18 @@ const app = require('../src/app');
 const supertest = require('supertest');
 const request = supertest(app);
 
-describe("/contracts", ()=>{
-    test("owener get contract by id", async ()=>{
+describe("/contracts/:id", ()=>{
+    test("get contract by id without authorization", async ()=>{
+        await request.get('/contracts/3').expect(401);
+    });
+
+    test("should not get contract of other user", async ()=>{
+        await request.get('/contracts/3')
+            .set('profile_id', '1')
+            .expect(403);
+    });
+
+    test("get contract by id", async ()=>{
         const resp = await request.get('/contracts/1')
             .set('profile_id', '5')
             .expect('Content-Type', /json/)
@@ -15,11 +25,11 @@ describe("/contracts", ()=>{
         expect(resp.body.ClientId).toBe(1);
         expect(resp.body.ContractorId).toBe(5);
     });
-    
-    test("not owner tries to get contract by", async ()=>{
-        await request.get('/contracts/3')
-            .set('profile_id', '1')
-            .expect(403);
+});
+
+describe("/contracts", ()=>{
+    test("get /contracts without authorization", async ()=>{
+        await request.get('/contracts').expect(401);
     });
 
     test("get a list of contracts", async ()=>{
