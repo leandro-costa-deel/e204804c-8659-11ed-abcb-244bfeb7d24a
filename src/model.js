@@ -47,7 +47,7 @@ Contract.init(
   {
     sequelize,
     modelName: 'Contract',
-    indexes: [{ // We have a route that filters by status, so we need this index for performance.
+    indexes: [{
       fields: ['status'] 
     }]
   }
@@ -80,7 +80,10 @@ Job.init(
   },
   {
     sequelize,
-    modelName: 'Job'
+    modelName: 'Job',
+    indexes: [{
+      fields: ['paid'] 
+    }]
   }
 );
 
@@ -93,6 +96,7 @@ Job.belongsTo(Contract)
 
 module.exports = {
   sequelize,
+  Op: Sequelize.Op,
   Profile,
   Contract,
   Job
