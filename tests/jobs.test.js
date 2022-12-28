@@ -152,7 +152,6 @@ describe("post /jobs/:job_id/pay", ()=>{
             .set('profile_id', client.id)
             .expect('Content-Type', /json/)
             .expect(200);
-        console.log("BODY:", resp.body);
         expect(resp.body).toBeTruthy();
         expect(resp.body.id).toBe(job.id);
         expect(resp.body.paid).toBe(true);

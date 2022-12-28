@@ -39,6 +39,27 @@ Profile.TYPE = {
   CONTRACTOR: 'contractor',
 }
 
+Profile.prototype.getTotalAmmountToPay = async function(){
+  const resp = await Job.findOne({
+    attributes: [
+      [sequelize.fn('sum', sequelize.col('price')), 'total_amount'],
+    ],
+    where: {
+      paid: false
+    },
+    include: [{
+      attributes:[],
+      model: Contract,
+      where: {
+        ClientId: this.id,
+      },
+      required: true,
+    }]
+  });
+
+  return resp.dataValues.total_amount;
+}
+
 class Contract extends Sequelize.Model {}
 Contract.init(
   {
