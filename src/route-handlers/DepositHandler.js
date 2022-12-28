@@ -2,7 +2,7 @@ const BasicRouteHandler = require('./BasicRouteHandler');
 
 class DepositHandler  extends BasicRouteHandler {
     async handleRequest(req,res){
-        const {Profile, Job } = req.app.get('models');
+        const {Profile} = req.app.get('models');
         const {userId} = req.params;
         const ammount  = Number.parseFloat(req.body.ammount);
         const profile = await Profile.findOne({
