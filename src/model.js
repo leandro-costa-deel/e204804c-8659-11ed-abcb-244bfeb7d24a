@@ -25,6 +25,7 @@ Profile.init(
     },
     type: {
       type: Sequelize.ENUM('client', 'contractor'),
+      allowNull: false,
     }
   },
   {
@@ -32,6 +33,11 @@ Profile.init(
     modelName: 'Profile'
   }
 );
+
+Profile.TYPE = {
+  CLIENT: 'client',
+  CONTRACTOR: 'contractor',
+}
 
 class Contract extends Sequelize.Model {}
 Contract.init(

@@ -2,7 +2,7 @@ const app = require('../src/app');
 const supertest = require('supertest');
 const request = supertest(app);
 
-describe("/contracts/:id", ()=>{
+describe("get /contracts/:id", ()=>{
     test("get contract by id without authorization", async ()=>{
         await request.get('/contracts/3').expect(401);
     });
@@ -27,7 +27,7 @@ describe("/contracts/:id", ()=>{
     });
 });
 
-describe("/contracts", ()=>{
+describe("get /contracts", ()=>{
     test("get /contracts without authorization", async ()=>{
         await request.get('/contracts').expect(401);
     });
